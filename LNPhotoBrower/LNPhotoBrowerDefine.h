@@ -15,30 +15,57 @@ typedef NS_ENUM(NSInteger,LNImageBrowerTransitionStyle) {
     LNImageBrowerTransitionStyleEaseInEaseOut,
 };
 
+bool iPhoneNotchScreen() {
+    if (__IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_11_0) {
+        return false;
+    }
+    CGFloat iPhoneNotchDirectionSafeAreaInsets = 0;
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].windows[0].safeAreaInsets;
+        switch ([UIApplication sharedApplication].statusBarOrientation) {
+            case UIInterfaceOrientationPortrait:{
+                iPhoneNotchDirectionSafeAreaInsets = safeAreaInsets.top;
+            }
+                break;
+            case UIInterfaceOrientationLandscapeLeft:{
+                iPhoneNotchDirectionSafeAreaInsets = safeAreaInsets.left;
+            }
+                break;
+            case UIInterfaceOrientationLandscapeRight:{
+                iPhoneNotchDirectionSafeAreaInsets = safeAreaInsets.right;
+            }
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:{
+                iPhoneNotchDirectionSafeAreaInsets = safeAreaInsets.bottom;
+            }
+                break;
+            default:
+                iPhoneNotchDirectionSafeAreaInsets = safeAreaInsets.top;
+                break;
+        }
+    }
+    return iPhoneNotchDirectionSafeAreaInsets > 20;
+}
+
+
 /*----------------------屏幕高/宽-----------------------*/
 #define LNScreenHeight    [[UIScreen mainScreen]bounds].size.height
 #define LNScreenWidth     [[UIScreen mainScreen]bounds].size.width
-#define LNiPhoneX          (LNScreenWidth == 375.f && LNScreenHeight == 812.f ? YES : NO)
-#define LNStatusBarHeight (LNiPhoneX ? 44.f : 20.f)
+#define LNiPhoneNotchScreen  iPhoneNotchScreen()
+#define LNStatusBarHeight (LNiPhoneNotchScreen ? 44.f : 20.f)
 #define LNNavigationBarHeight (LNStatusBarHeight + 44.f)
 #define LNScreenHeightNoNavigationBar (LNScreenHeight - LNNavigationBarHeight)
-#define LNiPhoneXNotchHeight (LNiPhoneX ? 31.f : 0.f) //iPhone X 刘海的高度 34
+#define LNiPhoneNotchHeight (LNiPhoneNotchScreen ? 31.f : 0.f)
 
 /*----------------------控件高-----------------------*/
-#define kTabBarHeight (LNiPhoneX ? 83.f : 49.f)
-#define kToolBarHeight              (LNiPhoneX ? 83.f : 49.f)
+#define kTabBarHeight (LNiPhoneNotchScreen ? 83.f : 49.f)
+#define kToolBarHeight              (LNiPhoneNotchScreen ? 83.f : 49.f)
 #define kToolBarContentHeight       49.f
 #define kHomeBarHeight (kToolBarHeight - kToolBarContentHeight)
 
-//颜色
-#define UIColorFromRGB(rgbValue) [UIColor \
-colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
-green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
-blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
-//弱引用
+//weak
 #define LNWeakify(var) __weak typeof(var) ZFLWeak_##var = var;
-//强引用
+//strong
 #define LNStrongify(var) \
 _Pragma("clang diagnostic push") \
 _Pragma("clang diagnostic ignored \"-Wshadow\"") \

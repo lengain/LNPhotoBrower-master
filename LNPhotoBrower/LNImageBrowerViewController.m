@@ -85,7 +85,6 @@ static NSString *LNImageBrowerCollectionViewCellReuseId = @"LNImageBrowerCollect
     self.modalPresentationStyle = UIModalPresentationCustom;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [viewController presentViewController:self animated:YES completion:nil];
-
 }
 
 - (void)dismiss {
