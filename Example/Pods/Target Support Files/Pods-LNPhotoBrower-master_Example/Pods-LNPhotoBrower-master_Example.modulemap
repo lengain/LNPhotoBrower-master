@@ -1,0 +1,6 @@
+framework module Pods_LNPhotoBrower_master_Example {
+  umbrella header "Pods-LNPhotoBrower-master_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

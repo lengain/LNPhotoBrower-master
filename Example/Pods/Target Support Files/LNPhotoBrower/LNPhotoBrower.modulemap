@@ -1,0 +1,6 @@
+framework module LNPhotoBrower {
+  umbrella header "LNPhotoBrower-umbrella.h"
+
+  export *
+  module * { export * }
+}

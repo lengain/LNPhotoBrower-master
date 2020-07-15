@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '8.0'
+
+target 'LNPhotoBrower-master_Example' do
+  pod 'LNPhotoBrower', :path => '../'
+
+  target 'LNPhotoBrower-master_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
