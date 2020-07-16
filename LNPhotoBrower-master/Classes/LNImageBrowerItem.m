@@ -85,10 +85,10 @@
     [self setContentSize:self.imageView.frame.size];
 }
 
-- (void)setImageURL:(NSURL *)imageURL {
+- (void)setImageURL:(NSURL *)imageURL placeholderImage:(UIImage *)placeholderImage {
     LNWeakify(self);
     [self.indicatorView show];
-    [self.imageView sd_setImageWithURL:imageURL placeholderImage:nil options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+    [self.imageView sd_setImageWithURL:imageURL placeholderImage:placeholderImage options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
         LNStrongify(self);
         [self.indicatorView setProgress:(CGFloat)receivedSize / (CGFloat)expectedSize];
     } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
@@ -138,8 +138,8 @@
 }
 
 - (void)onLongPress:(UILongPressGestureRecognizer *)longPressGesture {
-    if (self.monitor && [self.monitor respondsToSelector:@selector(imageBrowerItemDidLongPress:)]) {
-        [self.monitor imageBrowerItemDidLongPress:self];
+    if (self.monitor && [self.monitor respondsToSelector:@selector(imageBrowerItem:didLongPress:)]) {
+        [self.monitor imageBrowerItem:self didLongPress:longPressGesture];
     }
 }
 

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIGestureRecognizerSubclass.h>
 #import <UIKit/UITapGestureRecognizer.h>
+NS_ASSUME_NONNULL_BEGIN
+
 @interface LNImageBrowerTapGestureRecognizer : UITapGestureRecognizer
 
 @end
+
+NS_ASSUME_NONNULL_END

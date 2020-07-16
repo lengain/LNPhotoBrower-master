@@ -9,21 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "LNImagePickIndexModel.h"
 #import "LNPhotoBrowerDefine.h"
+NS_ASSUME_NONNULL_BEGIN
+
 @class LNImageBrowerViewController;
 @protocol LNImageBrowerViewControllerDataSource <NSObject>
 
 @optional
 - (NSInteger)numberOfImages;
 - (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController image:(void (^)(UIImage *))image atIndex:(NSInteger)index;
-- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController thumbImage:(void (^)(UIImage *))image atIndex:(NSInteger)index;
-- (UIImageView *)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController sourceImageViewAtIndex:(NSInteger)index;
-- (NSURL *)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController URLAtIndex:(NSInteger)index;
+- (nullable UIImage *)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController thumbImageAtIndex:(NSInteger)index;
+- (nullable UIImageView *)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController sourceImageViewAtIndex:(NSInteger)index;
+- (nullable NSURL *)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController URLAtIndex:(NSInteger)index;
 
 @end
 
 @protocol LNImageBrowerViewControllerDelegate <NSObject>
 @optional
-- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController didLongPressGestureOnImageAtIndex:(NSInteger)index;
+- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController longPressGesture:(UILongPressGestureRecognizer *)gesture onImageAtIndex:(NSInteger)index;
 - (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController didSelectedImageAtIndex:(NSInteger)index;
 - (void)imageBrowerViewDidConfirm:(LNImageBrowerViewController *)imageBrowerViewController;
 
@@ -52,3 +54,4 @@
 @end
 
 
+NS_ASSUME_NONNULL_END

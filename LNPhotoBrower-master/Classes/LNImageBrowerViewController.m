@@ -114,15 +114,19 @@ static NSString *LNImageBrowerCollectionViewCellReuseId = @"LNImageBrowerCollect
     LNImageBrowerCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LNImageBrowerCollectionViewCellReuseId forIndexPath:indexPath];
     cell.browerItem.monitor = self;
     cell.browerItem.style = self.style;
+    UIImage *thumbImage = nil;
+    if ([self.dataSocure respondsToSelector:@selector(imageBrowerViewController:thumbImageAtIndex:)]) {
+        thumbImage = [self.dataSocure imageBrowerViewController:self thumbImageAtIndex:indexPath.item];
+    }
     if ([self.dataSocure respondsToSelector:@selector(imageBrowerViewController:image:atIndex:)]) {
         __weak __typeof(cell) weakCell = cell;
         [self.dataSocure imageBrowerViewController:self image:^(UIImage *image) {
             [weakCell.browerItem setImage:image];
         } atIndex:indexPath.item];
     }else if ([self.dataSocure respondsToSelector:@selector(imageBrowerViewController:URLAtIndex:)]) {
-        [cell.browerItem setImageURL:[self.dataSocure imageBrowerViewController:self URLAtIndex:indexPath.row]];
+        [cell.browerItem setImageURL:[self.dataSocure imageBrowerViewController:self URLAtIndex:indexPath.row] placeholderImage:thumbImage];
     }else if (self.dataSourceArray){
-        [cell.browerItem setImageURL:[NSURL URLWithString:[self.dataSourceArray objectAtIndex:indexPath.row]]];
+        [cell.browerItem setImageURL:[NSURL URLWithString:[self.dataSourceArray objectAtIndex:indexPath.row]] placeholderImage:thumbImage];
     }
     return cell;
 }
@@ -163,9 +167,9 @@ static NSString *LNImageBrowerCollectionViewCellReuseId = @"LNImageBrowerCollect
     [self dismiss];
 }
 
-- (void)imageBrowerItemDidLongPress:(LNImageBrowerItem *)imageBrowerItem {
-    if ([self.delegate respondsToSelector:@selector(imageBrowerViewController:didLongPressGestureOnImageAtIndex:)]) {
-        [self.delegate imageBrowerViewController:self didLongPressGestureOnImageAtIndex:self.currentIndex];
+- (void)imageBrowerItem:(LNImageBrowerItem *)imageBrowerItem didLongPress:(UILongPressGestureRecognizer *)gesture {
+    if ([self.delegate respondsToSelector:@selector(imageBrowerViewController:longPressGesture:onImageAtIndex:)]) {
+        [self.delegate imageBrowerViewController:self longPressGesture:gesture onImageAtIndex:self.currentIndex];
     }
 }
 

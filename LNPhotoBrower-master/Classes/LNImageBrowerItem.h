@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "LNPhotoBrowerDefine.h"
+NS_ASSUME_NONNULL_BEGIN
+
 @class LNImageBrowerItem;
 @protocol LNImageBrowerItemGestureMonitor <UIScrollViewDelegate>
 
 - (void)imageBrowerItemDidTap:(LNImageBrowerItem *)imageBrowerItem;
-- (void)imageBrowerItemDidLongPress:(LNImageBrowerItem *)imageBrowerItem;
+- (void)imageBrowerItem:(LNImageBrowerItem *)imageBrowerItem didLongPress:(UILongPressGestureRecognizer *)gesture;
 - (void)imageBrowerItemDidScroll:(LNImageBrowerItem *)imageBrowerItem;
 - (void)imageBrowerItemZooming:(LNImageBrowerItem *)imageBrowerItem scale:(CGFloat)scale;
 - (void)imageBrowerItemDismiss:(LNImageBrowerItem *)imageBrowerItem;
@@ -27,7 +29,7 @@
 @property (nonatomic, strong) UIImageView *placeholderImageView;
 
 - (void)setImage:(UIImage *)image;
-- (void)setImageURL:(NSURL *)imageURL;
-
+- (void)setImageURL:(NSURL *)imageURL placeholderImage:(nullable UIImage *)placeholderImage;
 
 @end
+NS_ASSUME_NONNULL_END

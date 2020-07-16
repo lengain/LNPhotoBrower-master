@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "LNImagePickIndexModel.h"
-
+NS_ASSUME_NONNULL_BEGIN
 @interface LNImageBrowerThumbImageView : UIControl
 
 @property (nonatomic, strong) LNImagePickIndexModel *indexModel;
 
 @end
+
+NS_ASSUME_NONNULL_END
