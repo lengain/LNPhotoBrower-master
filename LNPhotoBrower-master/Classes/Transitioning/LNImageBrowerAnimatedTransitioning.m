@@ -47,9 +47,11 @@
                 maskView.alpha = 0;
                 [transitionContext.containerView addSubview:maskView];
                 
-                CGFloat radio = sourceView.frame.size.width / sourceView.frame.size.height;
-                if (CGRectIsEmpty(sourceView.frame)) {
+                CGFloat radio = 1;
+                if (!sourceView.image || !sourceView || CGRectIsEmpty(sourceView.frame)) {
                     radio = MAXFLOAT;
+                }else {
+                    radio = sourceView.image.size.width / sourceView.image.size.height;
                 }
                 CGFloat imageViewHeight = LNScreenWidth / radio;
                 CGFloat oraginY = (LNScreenHeight - imageViewHeight)/2;
@@ -57,21 +59,20 @@
                 
                 CGFloat imageScale = sourceView.image.size.height / sourceView.image.size.width;
                 CGFloat screenScale = [UIScreen mainScreen].bounds.size.height/[UIScreen mainScreen].bounds.size.width;
-                if (imageScale > screenScale) {
-//                    self.zoomImageView.contentMode = UIViewContentModeTop;
-                }else {
-                    
-                }
                 self.zoomImageView.contentMode = sourceView.contentMode;
                 [self.zoomImageView setImage:sourceView.image];
                 
                 [self.zoomImageView setFrame:[sourceView convertRect:sourceView.frame toView:transitionContext.containerView]];
+                self.zoomImageView.clipsToBounds = imageScale > screenScale;
                 [transitionContext.containerView addSubview:self.zoomImageView];
                 transitionContext.containerView.backgroundColor = [UIColor clearColor];
                 [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                     maskView.alpha = 1;
                     if (imageScale > screenScale) {
                         CGFloat imageWidth = LNScreenHeight / imageScale;
+                        if (imageWidth > LNScreenWidth) {
+                            imageWidth = LNScreenWidth;
+                        }
                         [self.zoomImageView setFrame:CGRectMake((LNScreenWidth - imageWidth)/2.f, 0, imageWidth, LNScreenHeight)];
                     }else {
                         [self.zoomImageView setFrame:CGRectMake(0, oraginY, LNScreenWidth, imageViewHeight)];
