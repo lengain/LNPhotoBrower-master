@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LNImagePickIndexModel.h"
 #import "LNPhotoBrowerDefine.h"
+#import "LNImageBrowerItem.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @class LNImageBrowerViewController;
@@ -24,10 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol LNImageBrowerViewControllerDelegate <NSObject>
+
 @optional
 - (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController longPressGesture:(UILongPressGestureRecognizer *)gesture onImageAtIndex:(NSInteger)index;
 - (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController didSelectedImageAtIndex:(NSInteger)index;
 - (void)imageBrowerViewDidConfirm:(LNImageBrowerViewController *)imageBrowerViewController;
+- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController willDisplayImageBrowerItem:(LNImageBrowerItem *)item;
+- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController didEndDisplayImageBrowerItem:(LNImageBrowerItem *)item;
 
 @end
 

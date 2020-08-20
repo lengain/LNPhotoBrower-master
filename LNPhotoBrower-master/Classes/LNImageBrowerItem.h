@@ -25,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id <LNImageBrowerItemGestureMonitor> monitor;
 @property (nonatomic, assign) LNImageBrowerTransitionStyle style;
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIImageView *placeholderImageView;
+@property (nonatomic, strong, readonly) UIImageView *imageView;
+@property (nonatomic, strong, readonly) NSURL *imageURL;
 
 - (void)setImage:(UIImage *)image;
 - (void)setImageURL:(NSURL *)imageURL placeholderImage:(nullable UIImage *)placeholderImage;

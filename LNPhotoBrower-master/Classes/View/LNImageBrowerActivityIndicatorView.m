@@ -39,6 +39,10 @@
     self.hidden = YES;
 }
 
+- (void)dismissWithError:(NSError *)error {
+    [self dismiss];
+}
+
 - (void)setProgress:(CGFloat)progress {
     //set your indicator view progress
 }

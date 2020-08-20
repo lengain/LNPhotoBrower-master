@@ -11,7 +11,7 @@
 #import "LNPhotoBrowerDefine.h"
 #import "LNImageBrowerViewController.h"
 #import "LNDemoHeader.h"
-@interface LNRemoteNetZoomStyleViewController ()<LNImageBrowerViewControllerDataSource>
+@interface LNRemoteNetZoomStyleViewController ()<LNImageBrowerViewControllerDataSource,LNImageBrowerViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray <NSString *>*imageURLStringArray;
 @property (nonatomic, strong) NSMutableArray <UIButton *>*imageButtonArray;
@@ -42,13 +42,39 @@
     LNImageBrowerViewController *imageBrower = [[LNImageBrowerViewController alloc] init];
     imageBrower.dataSourceArray = self.imageURLStringArray;
     imageBrower.dataSocure = self;
+    imageBrower.delegate = self;
     [imageBrower showImageBrowerWithViewController:self currentIndex:button.tag style:LNImageBrowerTransitionStyleZoom];
+}
+
+- (void)downloadButtonAction:(UIButton *)sender {
+    LNImageBrowerItem *item = (LNImageBrowerItem *)sender.superview;
+    NSLog(@"download:%@",item.imageURL);
 }
 
 #pragma mark - LNImageBrowerViewControllerDataSource
 
 - (UIImageView *)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController sourceImageViewAtIndex:(NSInteger)index {
     return self.imageButtonArray[index].imageView;
+}
+
+#pragma mark - LNImageBrowerViewControllerDelegate
+
+- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController willDisplayImageBrowerItem:(LNImageBrowerItem *)item {
+    NSLog(@"willDisplayImageBrowerItem:%@",item.imageURL);
+    for (UIView *view in item.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            return;
+        }
+    }
+    UIButton *downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [downloadButton setImage:[UIImage imageNamed:@"download"] forState:UIControlStateNormal];
+    downloadButton.frame = CGRectMake(item.frame.size.width - 80, item.frame.size.height - 80, 40, 40);
+    [downloadButton addTarget:self action:@selector(downloadButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [item addSubview:downloadButton];
+}
+
+- (void)imageBrowerViewController:(LNImageBrowerViewController *)imageBrowerViewController didEndDisplayImageBrowerItem:(LNImageBrowerItem *)item {
+    NSLog(@"didEndDisplayImageBrowerItem:%@",item.imageURL);
 }
 
 #pragma mark - Getters

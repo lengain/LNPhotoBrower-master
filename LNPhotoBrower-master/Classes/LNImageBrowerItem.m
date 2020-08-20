@@ -48,6 +48,8 @@
     self.translating = NO;
     self.translationPoint = CGPointZero;
     
+    _imageView = [[UIImageView alloc]init];
+    _imageView.userInteractionEnabled = YES;
     [self addSubview:self.imageView];
     [self.imageView setFrame:self.bounds];
     
@@ -86,6 +88,7 @@
 }
 
 - (void)setImageURL:(NSURL *)imageURL placeholderImage:(UIImage *)placeholderImage {
+    _imageURL = imageURL;
     LNWeakify(self);
     [self.indicatorView show];
     [self.imageView sd_setImageWithURL:imageURL placeholderImage:placeholderImage options:SDWebImageRetryFailed progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
@@ -97,7 +100,7 @@
             [self setImage:image];
             [self.indicatorView dismiss];
         }else {//show error
-            [self.indicatorView dismiss];
+            [self.indicatorView dismissWithError:error];
         }
     }];
 }
@@ -249,13 +252,6 @@
 
 #pragma mark - Getters
 
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc]init];
-        _imageView.userInteractionEnabled = YES;
-    }
-    return _imageView;
-}
 
 - (LNImageBrowerActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {

@@ -13,7 +13,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.browerItem = [[LNImageBrowerItem alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, CGRectGetHeight(frame))];
+        self.browerItem = [[LNImageBrowerItem alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
         [self.contentView addSubview:self.browerItem];
     }
     return self;

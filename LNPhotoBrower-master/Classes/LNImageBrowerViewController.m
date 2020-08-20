@@ -141,6 +141,20 @@ static NSString *LNImageBrowerCollectionViewCellReuseId = @"LNImageBrowerCollect
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(imageBrowerViewController:willDisplayImageBrowerItem:)]) {
+        LNImageBrowerCollectionViewCell *targetCell = (LNImageBrowerCollectionViewCell *)cell;
+        [self.delegate imageBrowerViewController:self willDisplayImageBrowerItem:targetCell.browerItem];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(imageBrowerViewController:didEndDisplayImageBrowerItem:)]) {
+        LNImageBrowerCollectionViewCell *targetCell = (LNImageBrowerCollectionViewCell *)cell;
+        [self.delegate imageBrowerViewController:self didEndDisplayImageBrowerItem:targetCell.browerItem];
+    }
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return self.collectionView.frame.size;
 }

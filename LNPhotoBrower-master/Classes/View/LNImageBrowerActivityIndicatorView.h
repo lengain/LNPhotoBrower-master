@@ -22,5 +22,6 @@
 - (void)setProgress:(CGFloat)progress;
 - (void)show;
 - (void)dismiss;
+- (void)dismissWithError:(NSError *)error;
 
 @end

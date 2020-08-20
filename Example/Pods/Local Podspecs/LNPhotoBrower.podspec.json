@@ -1,19 +1,19 @@
 {
   "name": "LNPhotoBrower",
-  "version": "0.0.1",
-  "summary": "A short description of LNPhotoBrower-master.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/童玉龙/LNPhotoBrower-master",
+  "version": "0.0.2",
+  "summary": "a photo brower for iOS,Objective-C",
+  "description": "a photo brower for iOS,support delegate,simble and easy to use",
+  "homepage": "https://github.com/lengain/LNPhotoBrower-master",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "童玉龙": "lengain@qq.com"
+    "lengain": "lengain@qq.com"
   },
   "source": {
-    "git": "https://github.com/童玉龙/LNPhotoBrower-master.git",
-    "tag": "0.0.1"
+    "git": "https://github.com/lengain/LNPhotoBrower-master.git",
+    "tag": "0.0.2"
   },
   "platforms": {
     "ios": "8.0"
